@@ -60,7 +60,11 @@ class RegionChecker {
     }
 
     private function downloadRegionsDatabase($forceReload){
-        $filePath = dirname(dirname(__DIR__)).'/var/'.basename(self::CSV_LINK, '.csv').'.json';
+        $folderPath = dirname(dirname(__DIR__)).'/var/';
+        if(!file_exists($folderPath)){
+            mkdir($folderPath);
+        }
+        $filePath = $folderPath.basename(self::CSV_LINK, '.csv').'.json';
         if(
             $forceReload
             || !file_exists($filePath)
