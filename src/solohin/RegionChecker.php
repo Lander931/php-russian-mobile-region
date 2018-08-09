@@ -10,10 +10,10 @@ class RegionChecker
     private $db = null;
     private $verbose = false;
     const CSV_LINKS = [
-        'https://www.rossvyaz.ru/docs/articles/Kody_ABC-3kh.csv',
-        'https://www.rossvyaz.ru/docs/articles/Kody_ABC-4kh.csv',
-        'https://www.rossvyaz.ru/docs/articles/Kody_ABC-8kh.csv',
-        'https://www.rossvyaz.ru/docs/articles/Kody_ABC-9kh.csv',
+        'https://www.rossvyaz.ru/docs/articles/ABC-3x.csv',
+        'https://www.rossvyaz.ru/docs/articles/ABC-4x.csv',
+        'https://www.rossvyaz.ru/docs/articles/ABC-8x.csv',
+        'https://www.rossvyaz.ru/docs/articles/DEF-9x.csv',
     ];
     const DB_UPDATE_FREQUENCY = 60 * 60 * 24 * 180;
 
