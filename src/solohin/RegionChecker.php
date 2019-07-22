@@ -78,7 +78,13 @@ class RegionChecker
             if (!file_exists($dir)) {
                 mkdir($dir, 0777, true);
             }
-            $filePath = 'sqlite:/' . $dir . 'regions_database.sqlite';
+
+            if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+                $filePath = 'sqlite:' . str_replace('\\', '/', $dir) . 'regions_database.sqlite';
+            } else {
+                $filePath = 'sqlite:/' . $dir . 'regions_database.sqlite';
+            }
+
             $this->db = new PDO($filePath) or die("cannot open the database");
 
             $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
