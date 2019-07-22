@@ -19,8 +19,8 @@ class RegionChecker
 
     public function __construct($forceReload = false, $verbose = false)
     {
-        $this->downloadRegionsDatabase($forceReload);
         $this->verbose = $verbose;
+        $this->downloadRegionsDatabase($forceReload);
     }
 
     public function getRegion($number)
