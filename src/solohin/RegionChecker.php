@@ -92,37 +92,11 @@ class RegionChecker
         return $this->db;
     }
 
-    private function isDbUpdated()
-    {
-        try {
-            $pdo = $this->getPDO();
-            $pdo->query('SELECT 1 FROM codes');
-            $statement = $pdo->query('SELECT value FROM status WHERE key = \'updated_ts\'');
-
-            $statement->execute();
-            if (($row = $statement->fetch(PDO::FETCH_ASSOC)) !== false) {
-                return ($row['value']) > (time() - self::DB_UPDATE_FREQUENCY);
-            }
-
-            return false;
-        } catch (\Exception $e) {
-            return false;
-        }
-    }
-
     private function clearRegionsDB()
     {
         $pdo = $this->getPDO();
         $pdo->exec("CREATE TABLE IF NOT EXISTS codes (from_number INTEGER, to_number INTEGER, region TEXT)");
-        $pdo->exec("CREATE TABLE IF NOT EXISTS status (key TEXT, value TEXT)");
         $pdo->exec("DELETE FROM codes");
-        $pdo->exec("DELETE FROM status");
-    }
-
-    private function setUpdatedTS()
-    {
-        $statement = $this->getPDO()->prepare("INSERT INTO status(key,value) VALUES('updated_ts',:value)");
-        $statement->execute([':value' => time()]);
     }
 
     private function addToRegionsDatabase($parsed, $fileName)
@@ -160,10 +134,7 @@ class RegionChecker
 
     private function downloadRegionsDatabase($forceReload)
     {
-        if (
-            $forceReload
-            || !$this->isDbUpdated()
-        ) {
+        if ($forceReload) {
             $this->clearRegionsDB();
 
             foreach (self::CSV_LINKS as $link) {
