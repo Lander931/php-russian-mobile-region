@@ -142,8 +142,6 @@ class RegionChecker
                 $parsed = $this->parse($csvContent);
                 $this->addToRegionsDatabase($parsed, basename($link));
             }
-
-            $this->setUpdatedTS();
         }
     }
 }
