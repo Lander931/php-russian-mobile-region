@@ -145,7 +145,7 @@ class RegionChecker
                 ]);
                 if ($this->verbose) {
                     $index++;
-                    if ($index % 500 === 0) {
+                    if ($index % 10 === 0) {
                         passthru('clear;');
                         printf("%.3f\n", microtime(true) - $time);
                         printf("Маска %s/%s\n", $index, count($masks));
