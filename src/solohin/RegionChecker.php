@@ -26,12 +26,12 @@ class RegionChecker
     public function getRegion($number)
     {
         $number = intval($this->format($number));
-        $statement = $this->getPDO()->prepare('SELECT region FROM codes WHERE from_number < :num AND to_number > :num LIMIT 1');
+        $statement = $this->getPDO()->prepare('SELECT region FROM codes WHERE from_number <= :num AND to_number >= :num LIMIT 1');
         $statement->execute([':num' => $number]);
         if (($row = $statement->fetch()) !== false) {
             $region = $row['region'];
             if (mb_strpos($region, '|') !== false) {
-                $region = explode('|', $region)[0];
+                $region = array_pop(explode('|', $region));
             }
             return $region;
         }
