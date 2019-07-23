@@ -167,7 +167,6 @@ class RegionChecker
             $this->clearRegionsDB();
 
             foreach (self::CSV_LINKS as $link) {
-                set_time_limit(600);
                 $csvContent = file_get_contents($link);
                 $parsed = $this->parse($csvContent);
                 $this->addToRegionsDatabase($parsed, basename($link));
